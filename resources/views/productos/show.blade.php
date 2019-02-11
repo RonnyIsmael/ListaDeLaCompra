@@ -12,8 +12,8 @@
 
         </div>
         <div class="col-sm-8">
-            <h1>{{$detalles[0]}}</h1>
-            <p>Categoría: {{$detalles[1]}}</p>
+            <h1>{{$detalles->nombre}}</h1>
+            <p>Categoría: {{$detalles->categoria}}</p>
             <p>Estado: Comprado</p>
             {{-- TODO: Datos del producto --}}
             <div>
