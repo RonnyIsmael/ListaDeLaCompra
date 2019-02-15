@@ -24,8 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'productos'], function () {
 
-        Route::get('/', 'ProductoController@getIndex');
-
+        Route::get('/{categorias?}', 'ProductoController@getIndex');
+        Route::get('/index/{productosCategoria}','ProductoController@getProductosCategoria');
 
         Route::get('show/{id}', 'ProductoController@getShow');
 

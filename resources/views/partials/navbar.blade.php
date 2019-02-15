@@ -15,13 +15,18 @@
                             Productos
                         </a>
                     </li>
+                    <li class="nav-item {{ Request::is('productos/categorias') && ! Request::is('productos/create')? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('/productos/categorias')}}">
+                            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+                            Categorías
+                        </a>
+                    </li>
                     <li class="nav-item {{  Request::is('productos/create') ? 'active' : ''}}">
                         <a class="nav-link" href="{{url('/productos/create')}}">
                             <span>&#10010</span> Nuevo Producto
                         </a>
                     </li>
                 </ul>
-
                 <ul class="navbar-nav navbar-right">
                     <li class="nav-item">
                         <form action="{{ url('/logout') }}" method="POST" style="display:inline">
