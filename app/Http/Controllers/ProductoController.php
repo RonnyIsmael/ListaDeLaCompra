@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Producto;
+use App\ProductoUser;
+
 class productoController extends Controller
 {
     public function getIndex($categorias=null)
@@ -22,9 +24,14 @@ class productoController extends Controller
 
     public function getShow($id)
     {
+        $pediente=false;
         $producto = Producto::findOrFail($id);
-        $pendiente =  $producto->pendiente;
-        return view('productos.show', array('detalles'=>$producto))->with('id',$id)->with('pendiente',$pendiente);
+        $productoComprado = ProductoUser::where('producto_id','=',$id)->get();
+
+        if (count($productoComprado)>0){
+            $pediente = true;
+        }
+        return view('productos.show', array('detalles'=>$producto))->with('id',$id)->with('pendiente',$pediente);
     }
     public function getCreate()
     {
@@ -57,9 +64,13 @@ class productoController extends Controller
         return redirect('productos/show/'. $producto->id);
     }
     public function changeComprado($id){
-        $producto = Producto::findOrFail($id);
-        $producto->pendiente = !$producto->pendiente;
-        $producto->save();
+        $usuarioId = auth()->user()->id;
+
+        ProductoUser::forceCreate([
+            'user_id'=>$usuarioId,
+            'producto_id'=>$id
+        ]);
+
         return back();
     }
 
